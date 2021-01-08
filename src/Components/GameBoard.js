@@ -31,6 +31,14 @@ const gameBoard = () => {
   const attacks = [];
   const misses = [];
 
+  const checkIfPlaced = name => {
+    if(ships[name].ship.returnShip().includes(null)){
+      return false;
+    }
+    return true;
+  }
+
+
   const placeShip = (name, location) => {
     if (checkForShipAtLocation(location)) {
       ships[name].ship.placeShip(location);
@@ -96,13 +104,13 @@ const gameBoard = () => {
     } else if (!ships["cruiser"].ship.isSunk()) {
       sunk = false;
     } else if (!ships["submarine"].ship.isSunk()) {
-      sunk = false; 
+      sunk = false;
     } else if (!ships["destroyer"].ship.isSunk()) {
       sunk = false;
     }
 
     return sunk;
-  }
+  };
 
   const returnGameBoard = () => {
     return gb;
@@ -128,6 +136,7 @@ const gameBoard = () => {
     placeShip,
     receiveAttack,
     allSunk,
+    checkIfPlaced,
   };
 };
 
