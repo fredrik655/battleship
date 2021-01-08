@@ -76,6 +76,15 @@ describe("Place ships on the board", () => {
   });
 });
 
+describe('check if placed', () => {
+  const gb = gameBoard();
+  test('placed ship should return true on check', () => {
+    gb.placeShip("battleship", [1, 2, 3, 4]);
+    expect(gb.checkIfPlaced('carrier')).toBe(false);
+    expect(gb.checkIfPlaced('battleship')).toBe(true);
+  })
+})
+
 describe("ship attacks", () => {
   test("register hit", () => {
     const gb = gameBoard();
@@ -95,7 +104,7 @@ describe("ship attacks", () => {
     expect(gb.returnAttacks()).toEqual([3]);
   });
 
-  test('register ship misses', () => {
+  test("register ship misses", () => {
     const gb = gameBoard();
     gb.placeShip("carrier", [0, 1, 2, 3, 4]);
 
@@ -103,10 +112,10 @@ describe("ship attacks", () => {
     expect(gb.receiveAttack(10)).toBe(false);
     expect(gb.returnMisses()).toEqual([10]);
     expect(gb.receiveAttack(25)).toBe(false);
-    expect(gb.returnMisses()).toEqual([10,25]);
-  })
+    expect(gb.returnMisses()).toEqual([10, 25]);
+  });
 
-  test('are all ship sunk', () => {
+  test("are all ship sunk", () => {
     const gb = gameBoard();
 
     gb.placeShip("carrier", [0, 1, 2, 3, 4]);
@@ -117,10 +126,10 @@ describe("ship attacks", () => {
 
     expect(gb.allSunk()).toBe(false);
 
-    for(let i = 0; i < 17; i++) {
+    for (let i = 0; i < 17; i++) {
       gb.receiveAttack(i);
-    };
+    }
 
     expect(gb.allSunk()).toBe(true);
-  })
+  });
 });
