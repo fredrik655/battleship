@@ -31,13 +31,12 @@ const gameBoard = () => {
   const attacks = [];
   const misses = [];
 
-  const checkIfPlaced = name => {
-    if(ships[name].ship.returnShip().includes(null)){
+  const checkIfPlaced = (name) => {
+    if (ships[name].ship.returnShip().includes(null)) {
       return false;
     }
     return true;
-  }
-
+  };
 
   const placeShip = (name, location) => {
     if (checkForShipAtLocation(location)) {
@@ -85,13 +84,13 @@ const gameBoard = () => {
     if (!attacks.includes(attackCoord)) {
       attacks.push(attackCoord);
       if (checkIfShipHit(attackCoord)) {
-        return true;
+        return 'hit';
       } else {
         misses.push(attackCoord);
-        return false;
+        return 'miss';
       }
     } else {
-      return false;
+      return 'attacked';
     }
   };
 
