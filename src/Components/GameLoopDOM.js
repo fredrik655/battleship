@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import GameBoardDOM from "./GameBoardDOM";
 import GameLoop from "./GameLoop";
 import PlacementDOM from "./PlacementDOM";
-import GameDOM from './GameDOM';
+import GameDOM from "./GameDOM";
 import GameOverDOM from "./GameOverDOM";
 
 const GameLoopDOM = () => {
@@ -13,7 +13,7 @@ const GameLoopDOM = () => {
   const [shipPlacementSize, setShipPlacementSize] = useState(5);
   const [currentSelectedShip, setCurrentSelectedShip] = useState("carrier");
   const [shipPositions, setShipPositions] = useState([]);
-  const [currentColor, setCurrentColor] = useState('#06d6a0')
+  const [currentColor, setCurrentColor] = useState("#06d6a0");
   const [gameOver, setGameOver] = useState([false, null]);
 
   useEffect(() => {
@@ -23,11 +23,10 @@ const GameLoopDOM = () => {
   }, []);
 
   const startGame = () => {
-    if(gl.allShipsPlaced()){
-    setPlaceShips(false);
+    if (gl.allShipsPlaced()) {
+      setPlaceShips(false);
     }
   };
-
 
   const onClickPlaceShip = (ev) => {
     const startIndex = ev.target.getAttribute("data-index");
@@ -52,102 +51,100 @@ const GameLoopDOM = () => {
         gl.placeShip(1, currentSelectedShip, indices);
         setShipBtnDisable();
         incrementCurrentSelectedShip();
-        console.log('here');
+        console.log("here");
       }
     }
   };
 
   const incrementCurrentSelectedShip = () => {
     if (currentSelectedShip === "carrier") {
-      setCurrentColor('#06d6a0');
+      setCurrentColor("#06d6a0");
       setCurrentSelectedShip("battleship");
       setShipPlacementSize(4);
     } else if (currentSelectedShip === "battleship") {
-      setCurrentColor('#06d6a0');
+      setCurrentColor("#06d6a0");
       setCurrentSelectedShip("cruiser");
       setShipPlacementSize(3);
     } else if (currentSelectedShip === "cruiser") {
-      setCurrentColor('#06d6a0');
+      setCurrentColor("#06d6a0");
       setCurrentSelectedShip("submarine");
       setShipPlacementSize(3);
     } else if (currentSelectedShip === "submarine") {
-      setCurrentColor('#06d6a0');
-      setCurrentSelectedShip("destroyer");
-      setShipPlacementSize(2);
-    }
-  }
-
-  const onClickAttack = ev => {
-    const targetIndex = +ev.target.getAttribute('data-index').split('a')[1];
-    const hitStatus = gl.attackShip(1, targetIndex);
-    if(hitStatus === 'hit') {
-      console.log(ev.target);
-      ev.target.style.backgroundColor = '#ef476f';
-    }
-    else if(hitStatus === 'miss') {
-      ev.target.style.opacity = 0.7;
-    }
-    
-    if(hitStatus !== 'attacked') {
-      const attackedIndex = gl.attackShip(2);
-      const attackedDiv = document.querySelector(`[data-index="p${attackedIndex}"]`);
-      if(attackedDiv.getAttribute('data-ship-id') !== '-1') {
-        attackedDiv.style.backgroundColor = '#ef476f';
-      }
-      else {
-        attackedDiv.style.opacity = 0.5;
-      }
-    }
-    const gmOv = gl.isGameOver();
-    if(gmOv[0]){
-      setGameOver(gmOv);
-    }
-  }
-
-  const setShipBtnDisable = () => {
-    const btn = document.querySelector(`#${currentSelectedShip}`);
-    btn.style.opacity = 0.5;
-  }
-
-  const changeShip = (ev) => {
-    const shipName = ev.target.textContent;
-    if (shipName === "Carrier") {
-      setCurrentColor('#06d6a0');
-      setCurrentSelectedShip("carrier");
-      setShipPlacementSize(5);
-    } else if (shipName === "Battleship") {
-      setCurrentColor('#06d6a0');
-      setCurrentSelectedShip("battleship");
-      setShipPlacementSize(4);
-    } else if (shipName === "Cruiser") {
-      setCurrentColor('#06d6a0');
-      setCurrentSelectedShip("cruiser");
-      setShipPlacementSize(3);
-    } else if (shipName === "Submarine") {
-      setCurrentColor('#06d6a0');
-      setCurrentSelectedShip("submarine");
-      setShipPlacementSize(3);
-    } else if (shipName === "Destroyer") {
-      setCurrentColor('#06d6a0');
+      setCurrentColor("#06d6a0");
       setCurrentSelectedShip("destroyer");
       setShipPlacementSize(2);
     }
   };
 
-  const toggleVertical = ev => {
-    const btn = ev.target;
-    if(vertical) {
-      btn.textContent = 'Vertical'; 
-      setVertical(false)
+  const onClickAttack = (ev) => {
+    const targetIndex = +ev.target.getAttribute("data-index").split("a")[1];
+    const hitStatus = gl.attackShip(1, targetIndex);
+    if (hitStatus === "hit") {
+      console.log(ev.target);
+      ev.target.style.backgroundColor = "#ef476f";
+    } else if (hitStatus === "miss") {
+      ev.target.style.opacity = 0.7;
     }
-    else {
-      btn.textContent = 'Horizontal'; 
+
+    if (hitStatus !== "attacked") {
+      const attackedIndex = gl.attackShip(2);
+      const attackedDiv = document.querySelector(
+        `[data-index="p${attackedIndex}"]`
+      );
+      if (attackedDiv.getAttribute("data-ship-id") !== "-1") {
+        attackedDiv.style.backgroundColor = "#ef476f";
+      } else {
+        attackedDiv.style.opacity = 0.5;
+      }
+    }
+    const gmOv = gl.isGameOver();
+    if (gmOv[0]) {
+      setGameOver(gmOv);
+    }
+  };
+
+  const setShipBtnDisable = () => {
+    const btn = document.querySelector(`#${currentSelectedShip}`);
+    btn.style.opacity = 0.5;
+  };
+
+  const changeShip = (ev) => {
+    const shipName = ev.target.textContent;
+    if (shipName === "Carrier") {
+      setCurrentColor("#06d6a0");
+      setCurrentSelectedShip("carrier");
+      setShipPlacementSize(5);
+    } else if (shipName === "Battleship") {
+      setCurrentColor("#06d6a0");
+      setCurrentSelectedShip("battleship");
+      setShipPlacementSize(4);
+    } else if (shipName === "Cruiser") {
+      setCurrentColor("#06d6a0");
+      setCurrentSelectedShip("cruiser");
+      setShipPlacementSize(3);
+    } else if (shipName === "Submarine") {
+      setCurrentColor("#06d6a0");
+      setCurrentSelectedShip("submarine");
+      setShipPlacementSize(3);
+    } else if (shipName === "Destroyer") {
+      setCurrentColor("#06d6a0");
+      setCurrentSelectedShip("destroyer");
+      setShipPlacementSize(2);
+    }
+  };
+
+  const toggleVertical = (ev) => {
+    const btn = ev.target;
+    if (vertical) {
+      btn.textContent = "Vertical";
+      setVertical(false);
+    } else {
+      btn.textContent = "Horizontal";
       setVertical(true);
     }
   };
 
   const onGameSquareHover = (ev) => {
-
     const startIndex = ev.target.getAttribute("data-index");
     const indices = gl.calculateIndices(
       +startIndex,
@@ -196,16 +193,12 @@ const GameLoopDOM = () => {
 
   const reloadPage = () => {
     window.location.reload();
-  }
+  };
 
   const checkIfGameHasStarted = () => {
-    if(gameOver[0]) {
-      return <GameOverDOM 
-        player={gameOver}
-        reload={reloadPage}
-      />
-    }
-    else {
+    if (gameOver[0]) {
+      return <GameOverDOM player={gameOver} reload={reloadPage} />;
+    } else {
       if (placeShips) {
         return [
           <PlacementDOM
@@ -222,10 +215,12 @@ const GameLoopDOM = () => {
           />,
         ];
       } else {
-        return <GameDOM 
-          positions={gl.returnShipPositions()}
-          onClickAttack={onClickAttack}
-        />
+        return (
+          <GameDOM
+            positions={gl.returnShipPositions()}
+            onClickAttack={onClickAttack}
+          />
+        );
       }
     }
   };

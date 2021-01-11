@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const GameDOM = props => {
-  return ([
+const GameDOM = (props) => {
+  return [
     <h2>Sink the enemies ships</h2>,
     <div id="game-board-container">
       <div className="game-board">
@@ -9,10 +9,10 @@ const GameDOM = props => {
       </div>
       <div className="game-board">
         {generateAiSquare(props.positions[1], props.onClickAttack)}
-    </div>
-    </div>
-  ]);
-}
+      </div>
+    </div>,
+  ];
+};
 
 const generatePlayerSquare = (positions) => {
   const componentArr = [];
@@ -31,13 +31,13 @@ const generatePlayerSquare = (positions) => {
 
 const returnShipId = (currentPos, allPos) => {
   let shipId = -1;
-  allPos.forEach((element,i) => {
-    if(element.includes(currentPos)){
+  allPos.forEach((element, i) => {
+    if (element.includes(currentPos)) {
       shipId = i;
     }
   });
   return shipId;
-}
+};
 
 const generateAiSquare = (positions, onClickAttack) => {
   const componentArr = [];

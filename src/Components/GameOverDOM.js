@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const GameOverDOM = props => {
+const GameOverDOM = (props) => {
   return (
     <div id="game-over-container">
       {setText(props.player[1])}
@@ -9,14 +9,12 @@ const GameOverDOM = props => {
   );
 };
 
-const setText = player => {
-  if(player === 1) {
+const setText = (player) => {
+  if (player === 1) {
     return <h2>You Win!</h2>;
-  }
-  else {
+  } else {
     return <h2>Computer Win! You loose</h2>;
   }
-  
-}
+};
 
 export default GameOverDOM;

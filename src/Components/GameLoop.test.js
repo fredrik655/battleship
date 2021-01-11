@@ -42,11 +42,10 @@ describe("ship placement", () => {
     expect(gl.calculateIndices(62, true, 5)).toBe(false);
     expect(gl.calculateIndices(50, true, 5)).not.toBe(false);
   });
-
 });
 
-describe('placement phase ready', () => {
-  test('check if all ships have been placed', () => {
+describe("placement phase ready", () => {
+  test("check if all ships have been placed", () => {
     const gl = gameLoop();
     gl.setUpPlayers();
 
@@ -62,7 +61,7 @@ describe('placement phase ready', () => {
     expect(gl.allShipsPlaced()).toBe(true);
   });
 
-  test('return all ship placements', () => {
+  test("return all ship placements", () => {
     const gl = gameLoop();
     gl.setUpPlayers();
     gl.placeShipsRandom();
@@ -74,30 +73,30 @@ describe('placement phase ready', () => {
 
     const [p1, ai] = gl.returnShipPositions();
 
-    expect(p1[0]).toEqual([1,2,3,4,5]);
+    expect(p1[0]).toEqual([1, 2, 3, 4, 5]);
     expect(p1[1]).toEqual([6, 7, 8, 9]);
     expect(p1[2]).toEqual([10, 11, 12]);
     expect(p1[3]).toEqual([13, 14, 15]);
     expect(p1[4]).toEqual([16, 17]);
-  })
+  });
 });
 
-describe('Attack', () => {
-  test('check if ai sunk', () => {
+describe("Attack", () => {
+  test("check if ai sunk", () => {
     const gl = gameLoop();
     gl.setUpPlayers();
     gl.placeShipsRandom();
 
     expect(gl.isGameOver()).toEqual([false, null]);
 
-    for(let i = 0; i < 100; i++) {
-      gl.attackShip(1,i);
+    for (let i = 0; i < 100; i++) {
+      gl.attackShip(1, i);
     }
 
     expect(gl.isGameOver()).toEqual([true, 1]);
   });
 
-  test('check if player sunk', () => {
+  test("check if player sunk", () => {
     const gl = gameLoop();
     gl.setUpPlayers();
     gl.placeShipsRandom();
@@ -107,10 +106,10 @@ describe('Attack', () => {
     gl.placeShip(1, "submarine", [13, 14, 15]);
     gl.placeShip(1, "destroyer", [16, 17]);
 
-    for(let i = 0; i < 100; i++) {
-      gl.attackShip(2,i);
+    for (let i = 0; i < 100; i++) {
+      gl.attackShip(2, i);
     }
 
     expect(gl.isGameOver()).toEqual([true, 2]);
-  })
+  });
 });

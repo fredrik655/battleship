@@ -84,13 +84,13 @@ const gameBoard = () => {
     if (!attacks.includes(attackCoord)) {
       attacks.push(attackCoord);
       if (checkIfShipHit(attackCoord)) {
-        return 'hit';
+        return "hit";
       } else {
         misses.push(attackCoord);
-        return 'miss';
+        return "miss";
       }
     } else {
-      return 'attacked';
+      return "attacked";
     }
   };
 

@@ -11,28 +11,25 @@ const gameLoop = () => {
 
   const placeShipsRandom = () => {
     const rand = Math.floor(Math.random() * 4);
-    if(rand < 1){
+    if (rand < 1) {
       placeShip(2, "carrier", [2, 3, 4, 5, 6]);
       placeShip(2, "battleship", [45, 55, 65, 75]);
       placeShip(2, "cruiser", [38, 48, 58]);
       placeShip(2, "submarine", [13, 14, 15]);
       placeShip(2, "destroyer", [98, 99]);
-    }
-    else if(rand >= 1 && rand <= 2){
+    } else if (rand >= 1 && rand <= 2) {
       placeShip(2, "carrier", [32, 42, 52, 62, 72]);
       placeShip(2, "battleship", [84, 85, 86, 87]);
       placeShip(2, "cruiser", [29, 39, 49]);
       placeShip(2, "submarine", [55, 56, 57]);
       placeShip(2, "destroyer", [6, 16]);
-    }
-    else {
+    } else {
       placeShip(2, "carrier", [91, 92, 93, 94, 95]);
       placeShip(2, "battleship", [58, 68, 78, 88]);
       placeShip(2, "cruiser", [74, 75, 76]);
       placeShip(2, "submarine", [50, 51, 52]);
       placeShip(2, "destroyer", [54, 64]);
     }
-    
 
     return true;
   };
@@ -41,56 +38,62 @@ const gameLoop = () => {
     const gb1 = p1.returnGameBoard();
     const gb2 = ai.returnGameBoard();
 
-    let allPlaced = (
-      (!gb1.checkIfPlaced('carrier')) ? false : 
-      (!gb1.checkIfPlaced('battleship')) ? false : 
-      (!gb1.checkIfPlaced('cruiser')) ? false : 
-      (!gb1.checkIfPlaced('submarine')) ? false : 
-      (!gb1.checkIfPlaced('destroyer')) ? false : true
-    );
-    if(allPlaced === true) {
-      allPlaced = (
-        (!gb2.checkIfPlaced('carrier')) ? false : 
-        (!gb2.checkIfPlaced('battleship')) ? false : 
-        (!gb2.checkIfPlaced('cruiser')) ? false : 
-        (!gb2.checkIfPlaced('submarine')) ? false : 
-        (!gb2.checkIfPlaced('destroyer')) ? false : true
-      );
+    let allPlaced = !gb1.checkIfPlaced("carrier")
+      ? false
+      : !gb1.checkIfPlaced("battleship")
+      ? false
+      : !gb1.checkIfPlaced("cruiser")
+      ? false
+      : !gb1.checkIfPlaced("submarine")
+      ? false
+      : !gb1.checkIfPlaced("destroyer")
+      ? false
+      : true;
+    if (allPlaced === true) {
+      allPlaced = !gb2.checkIfPlaced("carrier")
+        ? false
+        : !gb2.checkIfPlaced("battleship")
+        ? false
+        : !gb2.checkIfPlaced("cruiser")
+        ? false
+        : !gb2.checkIfPlaced("submarine")
+        ? false
+        : !gb2.checkIfPlaced("destroyer")
+        ? false
+        : true;
     }
     return allPlaced;
-  }
+  };
 
   const attackShip = (player, position) => {
-    if(player === 1) {
+    if (player === 1) {
       return ai.returnGameBoard().receiveAttack(position);
-    }
-    else {
-      let attack  = ai.generateAttack();
-      while(p1.returnGameBoard().receiveAttack(attack) === 'attacked') {
+    } else {
+      let attack = ai.generateAttack();
+      while (p1.returnGameBoard().receiveAttack(attack) === "attacked") {
         attack = ai.generateAttack();
       }
       return attack;
     }
-  }
+  };
 
-  const returnShipPositions = () =>{
+  const returnShipPositions = () => {
     const p1Ships = p1.returnGameBoard().returnShips();
     const aiShips = ai.returnGameBoard().returnShips();
 
     const p1PosArray = [];
     const AiPosArray = [];
 
-    Object.keys(p1Ships).forEach(element => {
+    Object.keys(p1Ships).forEach((element) => {
       p1PosArray.push(p1Ships[element].ship.returnShip());
     });
 
-    Object.keys(aiShips).forEach(element => {
+    Object.keys(aiShips).forEach((element) => {
       AiPosArray.push(aiShips[element].ship.returnShip());
     });
 
     return [p1PosArray, AiPosArray];
-
-  }
+  };
 
   const placeShip = (numb, name, location) => {
     let placed = false;
@@ -143,15 +146,14 @@ const gameLoop = () => {
   };
 
   const isGameOver = () => {
-    if(ai.returnGameBoard().allSunk()) {
+    if (ai.returnGameBoard().allSunk()) {
       return [true, 1];
-    }
-    else if(p1.returnGameBoard().allSunk()){
+    } else if (p1.returnGameBoard().allSunk()) {
       return [true, 2];
     }
-    
+
     return [false, null];
-  }
+  };
 
   const returnPlayers = () => {
     return [p1, ai];

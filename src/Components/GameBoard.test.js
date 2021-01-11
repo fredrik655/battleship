@@ -90,8 +90,8 @@ describe("ship attacks", () => {
     const gb = gameBoard();
     gb.placeShip("carrier", [0, 1, 2, 3, 4]);
 
-    expect(gb.receiveAttack(2)).toBe('hit');
-    expect(gb.receiveAttack(10)).toBe('miss');
+    expect(gb.receiveAttack(2)).toBe("hit");
+    expect(gb.receiveAttack(10)).toBe("miss");
     expect(gb.returnAttacks()).toEqual([2, 10]);
   });
 
@@ -99,8 +99,8 @@ describe("ship attacks", () => {
     const gb = gameBoard();
     gb.placeShip("carrier", [0, 1, 2, 3, 4]);
 
-    expect(gb.receiveAttack(3)).toBe('hit');
-    expect(gb.receiveAttack(3)).toBe('attacked');
+    expect(gb.receiveAttack(3)).toBe("hit");
+    expect(gb.receiveAttack(3)).toBe("attacked");
     expect(gb.returnAttacks()).toEqual([3]);
   });
 
@@ -108,10 +108,10 @@ describe("ship attacks", () => {
     const gb = gameBoard();
     gb.placeShip("carrier", [0, 1, 2, 3, 4]);
 
-    expect(gb.receiveAttack(3)).toBe('hit');
-    expect(gb.receiveAttack(10)).toBe('miss');
+    expect(gb.receiveAttack(3)).toBe("hit");
+    expect(gb.receiveAttack(10)).toBe("miss");
     expect(gb.returnMisses()).toEqual([10]);
-    expect(gb.receiveAttack(25)).toBe('miss');
+    expect(gb.receiveAttack(25)).toBe("miss");
     expect(gb.returnMisses()).toEqual([10, 25]);
   });
 
